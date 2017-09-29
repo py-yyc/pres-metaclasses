@@ -164,7 +164,7 @@ h2 {
       <h2>More But First!</h2>
 
       <pre><code data-trim class="language-python fragment">
-      class MyClass(object): # always use object in 2.7
+      class MyClass(object): # always use object in python2
           pass</code>
       <code data-trim class="language-python fragment">
       c = MyClass()</code>
@@ -216,6 +216,11 @@ h2 {
     <section>
       <h2>Lets make a class!</h2>
 
+      <!--
+      <pre><code data-trim class="language-python fragment">
+      class MyClass(object):
+        ...</code></pre> -->
+
       <pre><code data-trim class="language-python fragment">
       name = 'MyClass'
       bases = (object,)
@@ -240,8 +245,9 @@ h2 {
     <section>
       <h2>We're already metaprogramming</h2>
 
-      <p class="fragment">So we used code to make a class.</p>
+      <p class="fragment">So we used code to make a class</p>
       <p class="fragment">That's cool</p>
+      <p class="fragment">I guess</p>
     </section>
 
     <section>
@@ -276,13 +282,13 @@ h2 {
         # this called once per derived class _definition_
         def __new__(meta_class, name, bases, attrs):
           new_class = type(name, bases, {})
-          self.do_things_to_class(new_class, attrs)
+          meta_class.do_things_to_class(new_class, attrs)
           return new_class
 
         # creates a new instance of derived class
         def __call__(cls, *args, **kw):
             obj = cls.__new__(cls, *args, **kw)
-            self.do_things_to_instance(obj)
+            do_things_to_instance(obj)
             obj.__init__(*args, **kw)
             return obj
       </code></pre>
@@ -298,6 +304,18 @@ h2 {
       <h2>That doesn't look too bad...</h2>
 
       <p class="fragment">Let's go spelunking!</p>
+    </section>
+
+    <section>
+      <h2>Don't use them?</h2>
+
+      <p class="fragment">Well maybe you should use them, if you're positive
+      you need them.
+      </p>
+
+      <p class="fragment">But it's hard to keep everything straight in your
+      head, and a bug in your metaclass could appear as a bug in your real class.
+      </p>
     </section>
 
     <section>
